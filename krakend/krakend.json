@@ -62,6 +62,33 @@
           "disable_host_sanitize": false
         }
       ]
+    },
+    {
+      "endpoint": "/dashboard/v1/current",
+      "backend": [
+        {
+          "url_pattern": "/v1/current-time",
+          "encoding": "json",
+          "sd": "static",
+          "method": "GET",
+          "extra_config": {},
+          "host": [
+            "api_service_time:8091"
+          ],
+          "disable_host_sanitize": false
+        },
+        {
+          "url_pattern": "/v1/current-weather",
+          "encoding": "json",
+          "sd": "static",
+          "method": "GET",
+          "extra_config": {},
+          "host": [
+            "api_service_weather:8092"
+          ],
+          "disable_host_sanitize": false
+        }
+      ]
     }
   ]
 }
