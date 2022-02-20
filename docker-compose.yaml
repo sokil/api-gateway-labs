@@ -32,4 +32,31 @@ services:
         volumes:
             - ./nginx/weather.nginx.conf:/etc/nginx/conf.d/weather.nginx.conf
 
+    keycloak_mysql:
+        image: mysql:5.7
+        environment:
+            MYSQL_ROOT_PASSWORD: keycloak
+            MYSQL_DATABASE: keycloak
+            MYSQL_USER: keycloak
+            MYSQL_PASSWORD: keycloak
+        volumes:
+            - keycloak-db-data:/var/lib/mysql:rw
 
+    keycloak:
+        image: jboss/keycloak:16.1.1
+        environment:
+            KEYCLOAK_USER: keycloak
+            KEYCLOAK_PASSWORD: keycloak
+            DB_VENDOR: MYSQL
+            DB_ADDR: keycloak_mysql
+            DB_DATABASE: keycloak
+            DB_USER: keycloak
+            DB_PASSWORD: keycloak
+        command: ["-Djboss.http.port=8070"]
+        ports:
+            - "8070:8070"
+        depends_on:
+            - keycloak_mysql
+volumes:
+    keycloak-db-data:
+        driver: local

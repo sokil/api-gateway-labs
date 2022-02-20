@@ -75,7 +75,10 @@
           "host": [
             "api_service_time:8091"
           ],
-          "disable_host_sanitize": false
+          "disable_host_sanitize": false,
+          "blacklist": [
+            "timezone"
+          ]
         },
         {
           "url_pattern": "/v1/current-weather",
@@ -88,7 +91,8 @@
           ],
           "disable_host_sanitize": false
         }
-      ]
+      ],
+      "extra_config": {}
     }
   ]
 }
