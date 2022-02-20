@@ -1,0 +1,67 @@
+{
+  "version": 2,
+  "extra_config": {
+    "github_com/devopsfaith/krakend-cors": {
+      "allow_origins": [
+        "*"
+      ],
+      "expose_headers": [
+        "Content-Length"
+      ],
+      "max_age": "12h",
+      "allow_methods": [
+        "GET",
+        "HEAD",
+        "POST"
+      ]
+    }
+  },
+  "timeout": "3000ms",
+  "cache_ttl": "300s",
+  "output_encoding": "json",
+  "name": "ApiGarewayLabs",
+  "read_timeout": "1s",
+  "write_timeout": "1s",
+  "idle_timeout": "1s",
+  "read_header_timeout": "1s",
+  "endpoints": [
+    {
+      "endpoint": "/time/v1/current-time",
+      "method": "GET",
+      "output_encoding": "json",
+      "extra_config": {},
+      "backend": [
+        {
+          "url_pattern": "/v1/current-time",
+          "encoding": "json",
+          "sd": "static",
+          "method": "GET",
+          "extra_config": {},
+          "host": [
+            "api_service_time:8091"
+          ],
+          "disable_host_sanitize": false
+        }
+      ]
+    },
+    {
+      "endpoint": "/weather/v1/current-weather",
+      "method": "GET",
+      "output_encoding": "json",
+      "extra_config": {},
+      "backend": [
+        {
+          "url_pattern": "/v1/current-weather",
+          "encoding": "json",
+          "sd": "static",
+          "method": "GET",
+          "extra_config": {},
+          "host": [
+            "api_service_weather:8092"
+          ],
+          "disable_host_sanitize": false
+        }
+      ]
+    }
+  ]
+}

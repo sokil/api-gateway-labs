@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+    krakend:
+        image: devopsfaith/krakend:1.4.1-alpine
+        volumes:
+            - ./krakend/:/etc/krakend/
+        healthcheck:
+            test: [ "CMD", "curl", "-f", "http://localhost:8080/__health" ]
+            interval: 1m
+            timeout: 10s
+            retries: 3
+            start_period: 40s
+        ports:
+            - "8080:8080"
+
+    api_service_time:
+        image: openresty/openresty:1.19.9.1-5-alpine-fat
+        expose:
+            - 8091
+        ports:
+            - "8091:8091"
+        volumes:
+            - ./nginx/time.nginx.conf:/etc/nginx/conf.d/time.nginx.conf
+
+    api_service_weather:
+        image: openresty/openresty:1.19.9.1-5-alpine-fat
+        expose:
+            - 8092
+        ports:
+            - "8092:8092"
+        volumes:
+            - ./nginx/weather.nginx.conf:/etc/nginx/conf.d/weather.nginx.conf
+
+
